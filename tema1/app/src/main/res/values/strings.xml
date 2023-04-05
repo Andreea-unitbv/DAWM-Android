@@ -1,5 +1,4 @@
 <resources>
-    <string name="hello_blank_fragment">hello</string>
     <string name="app_name">Animals</string>
     <string name="close_app">Exit</string>
 </resources>
