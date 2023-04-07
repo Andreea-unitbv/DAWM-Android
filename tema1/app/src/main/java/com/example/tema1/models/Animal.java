@@ -24,4 +24,5 @@ public class Animal {
     public void setContinent(String continent) {
         this.continent = continent;
     }
+
 }
