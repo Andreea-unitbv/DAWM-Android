@@ -1,6 +1,8 @@
 package com.example.tema1.models;
 
-public class Animal {
+import java.io.Serializable;
+
+public class Animal implements Serializable {
     private String name;
     private String continent;
 

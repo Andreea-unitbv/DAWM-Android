@@ -5,7 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -17,10 +18,12 @@ import com.example.tema1.adapters.AnimalItemsAdapter;
 import com.example.tema1.models.Animal;
 import com.example.tema1.models.ListOfAnimals;
 
+
 import java.util.List;
 
 
-public class AnimalsFragment extends Fragment {
+
+public class AnimalsFragment extends Fragment implements AnimalItemsAdapter.ItemClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,14 +39,25 @@ public class AnimalsFragment extends Fragment {
         ListOfAnimals animalsExample=new ListOfAnimals();
         List<Animal> animals = animalsExample.animals;
 
-        AnimalItemsAdapter adapter = new AnimalItemsAdapter(animals);
+        AnimalItemsAdapter adapter = new AnimalItemsAdapter(animals, this);
 
         recyclerView.setAdapter(adapter);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),1);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setLayoutManager(layoutManager);
+
+
     }
 
+
+    @Override
+    public void OnItemClick(Animal animal) {
+        Fragment fragment= SecondFragment.newInstance(animal);
+        FragmentTransaction transaction= requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_animals,fragment,"fragment_second");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

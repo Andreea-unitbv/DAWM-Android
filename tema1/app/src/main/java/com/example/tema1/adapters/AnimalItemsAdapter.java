@@ -19,9 +19,11 @@ import java.util.List;
 public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<Animal> animals;
+    private final ItemClickListener clickListener;
+    public AnimalItemsAdapter(List<Animal>animals,ItemClickListener clickListener){
 
-    public AnimalItemsAdapter(List<Animal>animals){
         this.animals=animals;
+        this.clickListener=clickListener;
     }
 
     @Override
@@ -31,11 +33,12 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return 0;
     }
 
+
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-
         if(viewType==1) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_animal_h, parent, false);
             return new AnimalViewHolderHorizontal(view);
@@ -50,7 +53,9 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
         Animal animal = animals.get(position);
+        holder.itemView.setOnClickListener(view -> clickListener.OnItemClick(animal));
         int color;
         if(animal.getContinent().equals("Asia")){
             ((AnimalViewHolderHorizontal) holder).bind(animal);
@@ -84,15 +89,12 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     break;
                 default:
                     color = holder.itemView.getContext().getColor(R.color.white);
-                    ((AnimalViewHolderVertical) holder).animalNameTextView.setGravity(Gravity.END);
-                    ((AnimalViewHolderVertical) holder).animalContinentTextView.setGravity(Gravity.END);
                     break;
             }
         }
 
         holder.itemView.setBackgroundColor(color);
     }
-
 
     @Override
     public int getItemCount() {
@@ -103,6 +105,7 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         TextView animalNameTextView, animalContinentTextView;
         View separator;
+
         public AnimalViewHolderVertical(@NonNull View itemView) {
             super(itemView);
 
@@ -116,6 +119,7 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             animalContinentTextView.setText(animal.getContinent());
         }
     }
+
 
     static class AnimalViewHolderHorizontal extends RecyclerView.ViewHolder {
 
@@ -133,5 +137,9 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             animalNameTextView.setText(animal.getName());
             animalContinentTextView.setText(animal.getContinent());
         }
+    }
+
+    public interface ItemClickListener{
+         void OnItemClick(Animal animal);
     }
 }
