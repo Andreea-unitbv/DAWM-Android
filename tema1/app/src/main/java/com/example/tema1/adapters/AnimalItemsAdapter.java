@@ -1,6 +1,5 @@
 package com.example.tema1.adapters;
 
-import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tema1.R;
@@ -34,7 +32,6 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,7 +47,7 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
@@ -60,7 +57,7 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(animal.getContinent().equals("Asia")){
             ((AnimalViewHolderHorizontal) holder).bind(animal);
 
-            color =holder.itemView.getContext().getColor(R.color.red);
+            color =holder.itemView.getContext().getResources().getColor(R.color.red);
             ((AnimalViewHolderHorizontal)holder).animalNameTextView.setGravity(Gravity.CENTER_HORIZONTAL);
             ((AnimalViewHolderHorizontal) holder).animalContinentTextView.setGravity(Gravity.CENTER_HORIZONTAL);
         }
@@ -69,26 +66,26 @@ public class AnimalItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((AnimalViewHolderVertical) holder).bind(animal);
             switch (animal.getContinent()) {
                 case "Europa":
-                    color = holder.itemView.getContext().getColor(R.color.green);
+                    color = holder.itemView.getContext().getResources().getColor(R.color.green);
                     break;
                 case "Africa":
-                    color = holder.itemView.getContext().getColor(R.color.yellow);
+                    color = holder.itemView.getContext().getResources().getColor(R.color.yellow);
                     ((AnimalViewHolderVertical) holder).animalContinentTextView.setGravity(Gravity.END);
                     ((AnimalViewHolderVertical) holder).separator.setVisibility(View.VISIBLE);
                     break;
                 case "America de Nord":
                 case "America de Sud":
-                    color = holder.itemView.getContext().getColor(R.color.blue);
+                    color = holder.itemView.getContext().getResources().getColor(R.color.blue);
                     ((AnimalViewHolderVertical) holder).animalNameTextView.setGravity(Gravity.END);
                     ((AnimalViewHolderVertical) holder).animalContinentTextView.setGravity(Gravity.END);
                     break;
                 case "Australia":
-                    color = holder.itemView.getContext().getColor(R.color.orange);
+                    color = holder.itemView.getContext().getResources().getColor(R.color.orange);
                     ((AnimalViewHolderVertical) holder).animalNameTextView.setGravity(Gravity.CENTER);
                     ((AnimalViewHolderVertical) holder).animalContinentTextView.setGravity(Gravity.CENTER);
                     break;
                 default:
-                    color = holder.itemView.getContext().getColor(R.color.white);
+                    color = holder.itemView.getContext().getResources().getColor(R.color.white);
                     break;
             }
         }
